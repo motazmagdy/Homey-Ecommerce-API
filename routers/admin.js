@@ -15,10 +15,10 @@ router.post('/newAdmin', async (req, res) => {
         await admin.save()
         const token = await admin.generateAdminAuthToken()
 
-        const isAdmin = true;
+        const roleAuth = "admin";
 
         // console.log("admin signed up successfully")
-        res.status(201).send({ admin, token, isAdmin })
+        res.status(201).send({ admin, token, roleAuth })
     } catch (error) {
         res.status(400).send(error)
     }
@@ -87,9 +87,9 @@ router.post('/login', async (req, res) => {
     try {
         const admin = await Admin.findByCredentials(req.body.email, req.body.password)
         const token = await admin.generateAdminAuthToken()
-        const isAdmin = true;
+        const roleAuth = "admin";
 
-        res.send({ admin, token, isAdmin })
+        res.send({ admin, token, roleAuth })
     } catch (error) {
         res.status(400).send(error)
         console.log(error)

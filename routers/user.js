@@ -22,9 +22,9 @@ router.post('/signup', async (req, res) => {
 
         await user.save()
         const token = await user.generateAuthToken()
-        const isAdmin = false;
+        const roleAuth = "user";
 
-        res.status(201).send({ user, token, isAdmin })
+        res.status(201).send({ user, token, roleAuth })
     } catch (error) {
         res.status(400).send(error)
     }
@@ -34,9 +34,9 @@ router.post('/login', async (req, res) => {
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password)
         const token = await user.generateAuthToken()
-        const isAdmin = false;
+        const roleAuth = "user";
 
-        res.send({ user, token, isAdmin })
+        res.send({ user, token, roleAuth })
     } catch (error) {
         res.status(400).send(error)
     }
